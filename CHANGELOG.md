@@ -1,15 +1,12 @@
-
-
 ## [0.4.1](https://github.com/arshad-yaseen/ocr-llm/compare/0.4.0...0.4.1) (2024-11-10)
-
 
 ### 🔧 Maintenance
 
-* lock ([058f24b](https://github.com/arshad-yaseen/ocr-llm/commit/058f24b6df91e18094951391c13f93d1c691a873))
-* lock ([d7592f7](https://github.com/arshad-yaseen/ocr-llm/commit/d7592f7355ade102125bd0b9c3a6dc79fd6e8440))
-* lock ([6063b2e](https://github.com/arshad-yaseen/ocr-llm/commit/6063b2e3f3e1e3fba448d0d77fdf5fb387e6edba))
-* readme ([7513f5a](https://github.com/arshad-yaseen/ocr-llm/commit/7513f5a8abc1f977b4d65857adbaaa31dba1a631))
-* update ocr-llm ([3f54e3c](https://github.com/arshad-yaseen/ocr-llm/commit/3f54e3c2a7b02fc33c7bf16f9b907f497b0dc7f3))
+- lock ([058f24b](https://github.com/arshad-yaseen/ocr-llm/commit/058f24b6df91e18094951391c13f93d1c691a873))
+- lock ([d7592f7](https://github.com/arshad-yaseen/ocr-llm/commit/d7592f7355ade102125bd0b9c3a6dc79fd6e8440))
+- lock ([6063b2e](https://github.com/arshad-yaseen/ocr-llm/commit/6063b2e3f3e1e3fba448d0d77fdf5fb387e6edba))
+- readme ([7513f5a](https://github.com/arshad-yaseen/ocr-llm/commit/7513f5a8abc1f977b4d65857adbaaa31dba1a631))
+- update ocr-llm ([3f54e3c](https://github.com/arshad-yaseen/ocr-llm/commit/3f54e3c2a7b02fc33c7bf16f9b907f497b0dc7f3))
 
 ## [0.4.0](https://github.com/arshad-yaseen/ocr-llm/compare/0.3.12...0.4.0) (2024-11-10)
 

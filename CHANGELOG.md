@@ -1,11 +1,17 @@
 
 
-## [0.4.6](https://github.com/arshad-yaseen/ocr-llm/compare/0.4.5...0.4.6) (2024-11-10)
+## [0.4.7](https://github.com/arshad-yaseen/ocr-llm/compare/0.4.6...0.4.7) (2024-11-10)
 
 
 ### 🔧 Maintenance
 
-* readme ([8efe150](https://github.com/arshad-yaseen/ocr-llm/commit/8efe150b39946827fcafb5cf1b0f4b7b657cb27e))
+* readme ([69eae53](https://github.com/arshad-yaseen/ocr-llm/commit/69eae532c7267f3cfe3a990256600eca6a379617))
+
+## [0.4.6](https://github.com/arshad-yaseen/ocr-llm/compare/0.4.5...0.4.6) (2024-11-10)
+
+### 🔧 Maintenance
+
+- readme ([8efe150](https://github.com/arshad-yaseen/ocr-llm/commit/8efe150b39946827fcafb5cf1b0f4b7b657cb27e))
 
 ## [0.4.5](https://github.com/arshad-yaseen/ocr-llm/compare/0.4.4...0.4.5) (2024-11-10)
 

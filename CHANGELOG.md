@@ -1,12 +1,18 @@
 
 
-## [0.4.5](https://github.com/arshad-yaseen/ocr-llm/compare/0.4.4...0.4.5) (2024-11-10)
+## [0.4.6](https://github.com/arshad-yaseen/ocr-llm/compare/0.4.5...0.4.6) (2024-11-10)
 
 
 ### 🔧 Maintenance
 
-* body size limitation ([ae7ba0e](https://github.com/arshad-yaseen/ocr-llm/commit/ae7ba0ebdaedf38713801d1ab1f219b97f255534))
-* bump website package [skip-release] ([e4d7216](https://github.com/arshad-yaseen/ocr-llm/commit/e4d72167289436dc2cb4dd2c73d62c93805492d2))
+* readme ([8efe150](https://github.com/arshad-yaseen/ocr-llm/commit/8efe150b39946827fcafb5cf1b0f4b7b657cb27e))
+
+## [0.4.5](https://github.com/arshad-yaseen/ocr-llm/compare/0.4.4...0.4.5) (2024-11-10)
+
+### 🔧 Maintenance
+
+- body size limitation ([ae7ba0e](https://github.com/arshad-yaseen/ocr-llm/commit/ae7ba0ebdaedf38713801d1ab1f219b97f255534))
+- bump website package [skip-release] ([e4d7216](https://github.com/arshad-yaseen/ocr-llm/commit/e4d72167289436dc2cb4dd2c73d62c93805492d2))
 
 ## [0.4.4](https://github.com/arshad-yaseen/ocr-llm/compare/0.4.3...0.4.4) (2024-11-10)
 

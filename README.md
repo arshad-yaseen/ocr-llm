@@ -15,6 +15,7 @@ Fast, ultra-accurate text extraction from any image or PDF—including challengi
 ## Table of Contents
 
 - [Features](#features)
+- [Table of Contents](#table-of-contents)
 - [Installation](#installation)
   - [Prerequisites](#prerequisites)
     - [macOS](#macos)
@@ -33,10 +34,9 @@ Fast, ultra-accurate text extraction from any image or PDF—including challengi
     - [`ocrllm.pdfImages(inputs)`](#ocrllmpdfimagesinputs)
 - [Error Handling](#error-handling)
 - [Used Models](#used-models)
-- [Frontend Usage](#frontend-usage)
-  - [Browser-Specific Implementation](#browser-specific-implementation)
-  - [Example: Next.js Implementation](#example-nextjs-implementation)
+- [Browser-Specific Implementation](#browser-specific-implementation)
   - [`pdfto.images` API Reference](#pdftoimages-api-reference)
+  - [Limitations](#limitations)
 - [Contributing](#contributing)
 
 ## Installation
@@ -197,13 +197,11 @@ OcrLLM uses the following model:
 | -------- | ------------- | ------------------------------------------------------------------------------------------------- |
 | OpenAI   | `gpt-4o-mini` | High-performance model optimized for efficient text extraction with excellent accuracy and speed. |
 
-## Frontend Usage
+## Browser-Specific Implementation
 
-When using OcrLLM in frontend applications (like Next.js, React, etc.), especially in serverless environments that don't support system-level dependencies, you'll need a different approach.
+When using OcrLLM in serverless environments like Vercel (for example, when hosting a Next.js application that implements text extraction in an API route handler), the core library's PDF processing requires system-level dependencies (GraphicsMagick, Ghostscript) that cannot be installed. However, OcrLLM provides a browser-specific implementation that can handle the PDF-to-image conversion step directly in the browser.
 
-### Browser-Specific Implementation
-
-OcrLLM provides a browser-specific package that handles PDF processing directly in the browser, eliminating the need for system dependencies like GraphicsMagick and Ghostscript.
+By using the browser package for PDF conversion and the main OcrLLM package for text extraction, you can maintain full functionality without needing system dependencies on your server. This hybrid approach gives you the best of both worlds: client-side PDF handling and server-side OCR processing.
 
 First, convert the PDF to images in the browser:
 
@@ -231,159 +229,15 @@ results.forEach(page => {
 });
 ```
 
-### Example: Next.js Implementation
-
-Here's how to implement PDF processing with OcrLLM in a Next.js application.
-
-#### API Route (`/app/api/extract/route.ts`)
-
-```typescript
-import {NextRequest, NextResponse} from 'next/server';
-
-import {OcrLLM} from 'ocr-llm';
-
-export const maxDuration = 60;
-
-const ocrllm = new OcrLLM({
-  provider: 'openai',
-  key: process.env.OPENAI_API_KEY!,
-});
-
-export async function POST(req: NextRequest) {
-  try {
-    const {urls} = await req.json();
-    const result = await ocrllm.pdfImages(urls);
-    return NextResponse.json({result});
-  } catch (error) {
-    console.error('Failed to process PDF:', error);
-    return NextResponse.json({error: 'Failed to process PDF'}, {status: 500});
-  }
-}
-```
-
-#### File Upload Component (`/components/FileUpload.tsx`)
-
-```tsx
-import React from 'react';
-
-import {pdfto} from 'ocr-llm/browser';
-
-interface FileUploadProps {
-  onUpload: (urls: string[]) => void;
-}
-
-const FileUpload = ({onUpload}: FileUploadProps) => {
-  const handleFileChange = async (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
-    // Convert PDF to images
-    const urls = await pdfto.images(file, {
-      output: 'dataurl',
-    });
-
-    onUpload(urls);
-  };
-
-  return (
-    <input
-      type="file"
-      accept=".pdf"
-      onChange={handleFileChange}
-      className="block w-full text-sm"
-    />
-  );
-};
-
-export default FileUpload;
-```
-
-#### Main Page (`/pages/index.tsx`)
-
-```tsx
-import {useState} from 'react';
-import dynamic from 'next/dynamic';
-
-import type {PageResult} from 'ocr-llm';
-
-// Prevent SSR warnings from pdfto.images()
-const FileUpload = dynamic(() => import('../components/FileUpload'), {
-  ssr: false,
-});
-
-const Home = () => {
-  const [pages, setPages] = useState<PageResult[]>([]);
-  const [loading, setLoading] = useState(false);
-
-  const handleUpload = async (urls: string[]) => {
-    setLoading(true);
-
-    try {
-      const response = await fetch('/api/extract', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({urls}),
-      });
-      const data = await response.json();
-      setPages(data.result);
-    } catch (error) {
-      console.error('Failed to process PDF:', error);
-    }
-
-    setLoading(false);
-  };
-
-  return (
-    <main className="max-w-4xl mx-auto p-8">
-      <h1 className="text-2xl font-bold mb-8">PDF Text Extractor</h1>
-      <FileUpload onUpload={handleUpload} />
-      {loading && <p className="mt-4">Processing PDF...</p>}
-      {pages.map(page => (
-        <div key={page.page} className="mt-8">
-          <h2 className="text-xl font-semibold">Page {page.page}</h2>
-          <p className="mt-2 whitespace-pre-wrap">{page.content}</p>
-        </div>
-      ))}
-    </main>
-  );
-};
-
-export default Home;
-```
-
-This implementation:
-
-1. Converts PDFs to images in the browser using `pdfto.images()`.
-2. Sends the image data URLs to the API.
-3. Processes all pages on the server using `ocrllm.pdfImages()`.
-4. Returns structured results with page numbers and content.
-
-The browser-based PDF conversion eliminates the need for GraphicsMagick and Ghostscript, making it compatible with serverless platforms like Vercel.
-
-### Limitations
-
-- When hosting on Vercel, processing PDFs with more than 25 pages will trigger a `FUNCTION_PAYLOAD_TOO_LARGE` error due to Vercel's 4.5MB function body size limit. Similar limitations may exist on other hosting platforms.
-
-To handle this gracefully, implement a page limit check before processing:
-
-```typescript
-const urls = await pdfto.images(pdfFile, {
-  output: 'dataurl',
-});
-if (urls.length >= 25) {
-  toast.error('Please upload a PDF with fewer than 25 pages');
-} else {
-  onUpload(urls);
-}
-```
-
 ### `pdfto.images` API Reference
 
 ```typescript
 pdfto.images(pdfFile, options);
 ```
+
+### Limitations
+
+- Remember that we are sending the data URL of each PDF page as an array to the API or Next.js API route handler. When hosting on providers like Vercel, processing PDFs with more than 25 pages (depending on the content size of each page) may trigger a `FUNCTION_PAYLOAD_TOO_LARGE` error due to their 4.5MB function body size limit. Similar limitations may exist on other hosting platforms.
 
 **Parameters**:
 

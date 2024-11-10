@@ -229,15 +229,15 @@ results.forEach(page => {
 });
 ```
 
+### Limitation
+
+Remember that we are sending the data URL of each PDF page as an array to the API or Next.js API route handler. When hosting on providers like Vercel, processing PDFs with more than 25 pages (depending on the content size of each page) may trigger a `FUNCTION_PAYLOAD_TOO_LARGE` error due to their 4.5MB function body size limit. Similar limitations may exist on other hosting platforms.
+
 ### `pdfto.images` API Reference
 
 ```typescript
 pdfto.images(pdfFile, options);
 ```
-
-### Limitations
-
-- Remember that we are sending the data URL of each PDF page as an array to the API or Next.js API route handler. When hosting on providers like Vercel, processing PDFs with more than 25 pages (depending on the content size of each page) may trigger a `FUNCTION_PAYLOAD_TOO_LARGE` error due to their 4.5MB function body size limit. Similar limitations may exist on other hosting platforms.
 
 **Parameters**:
 

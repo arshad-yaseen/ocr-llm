@@ -16,11 +16,22 @@ const FileUpload = ({onUpload}: FileUploadProps) => {
   const [url, setUrl] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (url) {
-      onUpload(url);
-      setUrl('');
+      try {
+        setUrl('');
+        if (url.toLowerCase().endsWith('.pdf')) {
+          const urls = (await pdfto.images(url, {
+            output: 'dataurl',
+          })) as string[];
+          onUpload(urls);
+        } else {
+          onUpload(url);
+        }
+      } catch (error) {
+        setUrl('');
+      }
     }
   };
 
@@ -28,19 +39,25 @@ const FileUpload = ({onUpload}: FileUploadProps) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    const urls = (await pdfto.images(file, {
-      output: 'dataurl',
-    })) as string[];
-
-    console.log(urls);
-
-    onUpload(urls);
+    if (file.type === 'application/pdf') {
+      const urls = (await pdfto.images(file, {
+        output: 'dataurl',
+      })) as string[];
+      onUpload(urls);
+    } else {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const dataUrl = reader.result as string;
+        onUpload(dataUrl);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col items-center gap-4 mt-10">
+      className="flex flex-col w-full items-center gap-4 mt-10">
       <div className="flex w-full max-w-lg gap-2">
         <Input
           placeholder="Enter image or PDF URL"

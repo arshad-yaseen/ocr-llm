@@ -1,3 +1,22 @@
+
+
+## [0.4.0](https://github.com/arshad-yaseen/ocr-llm/compare/0.3.12...0.4.0) (2024-11-10)
+
+
+### 🚀 Features
+
+* pdf conversion utils ([8290062](https://github.com/arshad-yaseen/ocr-llm/commit/82900629e8491898ed6a3438b67a7580e4145e1c))
+
+
+### 🔧 Maintenance
+
+* pdf conversion utils ([fd6cda8](https://github.com/arshad-yaseen/ocr-llm/commit/fd6cda8b6c8ed37fd9ccf9cc70111aa5ae005af8))
+* shared get buffer from input function ([068d344](https://github.com/arshad-yaseen/ocr-llm/commit/068d34489dfb9582952b3cb9f694708d44154d22))
+* update ocr-llm ([d6f58e6](https://github.com/arshad-yaseen/ocr-llm/commit/d6f58e6bf03276bea5071c951510e35e669880d3))
+* update readme ([47c6221](https://github.com/arshad-yaseen/ocr-llm/commit/47c6221817d5f18589def2ae99904941b74eb842))
+* website ([fd87726](https://github.com/arshad-yaseen/ocr-llm/commit/fd8772678c8c84e95f09ad778ebdf19c7cb7ed84))
+* website ([12de5c1](https://github.com/arshad-yaseen/ocr-llm/commit/12de5c1ef5625cda99f1b52faf350e4834063ce2))
+
 ## [0.3.12](https://github.com/arshad-yaseen/ocr-llm/compare/0.3.11...0.3.12) (2024-11-06)
 
 ### 🔧 Maintenance

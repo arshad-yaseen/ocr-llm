@@ -143,7 +143,7 @@ export default function Home() {
           },
         )}>
         <div className="space-y-6 text-center">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tighter">
             OcrLLM
           </h1>
           <p className="text-lg sm:text-xl text-neutral-500 leading-relaxed max-w-2xl mx-auto">

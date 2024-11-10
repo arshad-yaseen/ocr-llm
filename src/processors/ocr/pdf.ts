@@ -5,19 +5,13 @@ import * as path from 'path';
 import {PDFDocument} from 'pdf-lib';
 import {fromPath} from 'pdf2pic';
 
-import {ConcurrencyLimit} from '../classes/concurrency-limit';
-import {MAX_CONCURRENT_REQUESTS} from '../constants';
-import {_pm, report} from '../logger';
-import {InputSource, PageResult, Provider} from '../types';
+import {ConcurrencyLimit} from '../../classes/concurrency-limit';
+import {MAX_CONCURRENT_REQUESTS} from '../../constants';
+import {_pm, report} from '../../logger';
+import {InputSource, PageResult, Provider} from '../../types';
+import {getBufferFromInput} from '../../utils/buffer';
 import {processImage} from './image';
 
-/**
- * Processes a PDF input and extracts text content from each page.
- * @param input - PDF input source.
- * @param provider - The OCR provider to use.
- * @param apiKey - API key for authentication.
- * @returns An array of extracted text and metadata for each page.
- */
 export async function processPdf(
   input: InputSource,
   provider: Provider,
@@ -30,34 +24,7 @@ export async function processPdf(
   const processingLimiter = new ConcurrencyLimit(MAX_CONCURRENT_REQUESTS);
 
   try {
-    // Save input to temporary PDF file
-    let pdfBuffer: Buffer;
-
-    if (typeof input === 'string') {
-      try {
-        if (input.startsWith('http')) {
-          const response = await fetch(input);
-          if (!response.ok) {
-            throw new Error(
-              `Failed to fetch PDF: ${response.status} ${response.statusText}`,
-            );
-          }
-          pdfBuffer = Buffer.from(await response.arrayBuffer());
-        } else if (input.startsWith('data:application/pdf')) {
-          pdfBuffer = Buffer.from(input.split(',')[1], 'base64');
-        } else {
-          pdfBuffer = await fs.readFile(input);
-        }
-      } catch (error: unknown) {
-        throw new Error(`Failed to read PDF input: ${_pm(error)}`);
-      }
-    } else {
-      pdfBuffer = input;
-    }
-
-    if (!pdfBuffer?.length) {
-      throw new Error('Empty or invalid PDF buffer');
-    }
+    const pdfBuffer = await getBufferFromInput(input);
 
     await fs.writeFile(tempPdfPath, pdfBuffer);
 

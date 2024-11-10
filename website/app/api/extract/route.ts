@@ -16,24 +16,12 @@ export async function POST(request: Request) {
       );
     }
 
-    const {url, type} = await request.json();
-
-    if (!url || !type) {
-      return Response.json(
-        {error: 'Missing required fields: url and type'},
-        {status: 400},
-      );
-    }
-
-    if (type !== 'image' && type !== 'pdf') {
-      return Response.json(
-        {error: 'Invalid type: must be "image" or "pdf"'},
-        {status: 400},
-      );
-    }
+    const {urls} = await request.json();
 
     const result =
-      type === 'image' ? await ocrllm.image(url) : await ocrllm.pdf(url);
+      typeof urls === 'string'
+        ? await ocrllm.image(urls)
+        : await ocrllm.pdfImages(urls);
 
     return Response.json({result});
   } catch (error) {

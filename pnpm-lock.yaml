@@ -84,8 +84,8 @@ importers:
         specifier: ^0.4.3
         version: 0.4.3(react-dom@19.0.0-rc-02c0e824-20241028(react@19.0.0-rc-02c0e824-20241028))(react@19.0.0-rc-02c0e824-20241028)
       ocr-llm:
-        specifier: ^0.4.0
-        version: 0.4.1
+        specifier: workspace:*
+        version: link:..
       react:
         specifier: 19.0.0-rc-02c0e824-20241028
         version: 19.0.0-rc-02c0e824-20241028
@@ -4595,12 +4595,6 @@ packages:
       }
     engines: {node: '>= 6'}
 
-  ocr-llm@0.4.1:
-    resolution:
-      {
-        integrity: sha512-75wevHV8XGSq+VfSjZhunCVP02Fykot7IhJ62bzNCqwvMOIknaW5dWiMlBEq3VhwpFubjwb18GpavORaWKISIQ==,
-      }
-
   once@1.4.0:
     resolution:
       {
@@ -9091,14 +9085,6 @@ snapshots:
   object-assign@4.1.1: {}
 
   object-hash@3.0.0: {}
-
-  ocr-llm@0.4.1:
-    dependencies:
-      pdf-lib: 1.17.1
-      pdf2pic: 3.1.3
-      pdfjs-dist: 4.8.69
-    transitivePeerDependencies:
-      - supports-color
 
   once@1.4.0:
     dependencies:

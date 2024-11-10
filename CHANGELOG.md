@@ -1,13 +1,10 @@
-
-
 ## [0.4.3](https://github.com/arshad-yaseen/ocr-llm/compare/0.4.1...0.4.3) (2024-11-10)
-
 
 ### 🔧 Maintenance
 
-* add sonner ([fea3e92](https://github.com/arshad-yaseen/ocr-llm/commit/fea3e929945b44c8c9f84fc2fcba981055f3458f))
-* bump version ([8c04987](https://github.com/arshad-yaseen/ocr-llm/commit/8c04987f30edec1ea73aebea826974dbe1c3a7be))
-* improve pdfto.images performance ([e4c0a18](https://github.com/arshad-yaseen/ocr-llm/commit/e4c0a18e98bc2975d641758feb13a1bb8e2ffd05))
+- add sonner ([fea3e92](https://github.com/arshad-yaseen/ocr-llm/commit/fea3e929945b44c8c9f84fc2fcba981055f3458f))
+- bump version ([8c04987](https://github.com/arshad-yaseen/ocr-llm/commit/8c04987f30edec1ea73aebea826974dbe1c3a7be))
+- improve pdfto.images performance ([e4c0a18](https://github.com/arshad-yaseen/ocr-llm/commit/e4c0a18e98bc2975d641758feb13a1bb8e2ffd05))
 
 ## [0.4.1](https://github.com/arshad-yaseen/ocr-llm/compare/0.4.0...0.4.1) (2024-11-10)
 

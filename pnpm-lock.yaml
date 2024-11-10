@@ -81,8 +81,8 @@ importers:
         specifier: 15.0.3
         version: 15.0.3(react-dom@19.0.0-rc-02c0e824-20241028(react@19.0.0-rc-02c0e824-20241028))(react@19.0.0-rc-02c0e824-20241028)
       ocr-llm:
-        specifier: ^0.3.10
-        version: 0.3.12
+        specifier: ^0.4.0
+        version: 0.4.0
       react:
         specifier: 19.0.0-rc-02c0e824-20241028
         version: 19.0.0-rc-02c0e824-20241028
@@ -4579,11 +4579,11 @@ packages:
         integrity: sha512-RSn9F68PjH9HqtltsSnqYC1XXoWe9Bju5+213R98cNGttag9q9yAOTzdbsqvIa7aNm5WffBZFpWYr2aWrklWAw==,
       }
     engines: {node: '>= 6'}
-
-  ocr-llm@0.3.12:
+    
+  ocr-llm@0.4.0:
     resolution:
       {
-        integrity: sha512-I7Le0VCdBVoIxi7B2WCSL6f/aGWwhWQfCS8zO6wr1nmVxp7cC4AS8uoB1KJVdMbJCT413p+nGd8iG7NigGIz8A==,
+        integrity: sha512-4VKuDm3Z0xqkIQCt47pllSAvozIEtstDmTVJ666KP0hv21svw6fWohsIkyCOyeqzm9auYEUCEMduQsXiOyn/Nw==,
       }
 
   once@1.4.0:
@@ -9063,10 +9063,11 @@ snapshots:
 
   object-hash@3.0.0: {}
 
-  ocr-llm@0.3.12:
+  ocr-llm@0.4.0:
     dependencies:
       pdf-lib: 1.17.1
       pdf2pic: 3.1.3
+      pdfjs-dist: 4.8.69
     transitivePeerDependencies:
       - supports-color
 

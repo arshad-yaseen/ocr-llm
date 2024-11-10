@@ -16,12 +16,12 @@ export async function POST(request: Request) {
       );
     }
 
-    const {url} = await request.json();
+    const {urls} = await request.json();
 
     const result =
-      typeof url === 'string'
-        ? await ocrllm.image(url)
-        : await ocrllm.pages(url);
+      typeof urls === 'string'
+        ? await ocrllm.image(urls)
+        : await ocrllm.pdfImages(urls);
 
     return Response.json({result});
   } catch (error) {

@@ -1,8 +1,8 @@
 import {SUPPORTED_PROVIDERS} from '../constants';
 import {InvalidProviderError} from '../errors';
 import {processImage} from '../processors/ocr/image';
-import {processPages} from '../processors/ocr/pages';
 import {processPdf} from '../processors/ocr/pdf';
+import {processPdfImages} from '../processors/ocr/pdf-images';
 import {ImageResult, InputSource, OcrLLMConfig, PageResult} from '../types';
 
 /**
@@ -40,11 +40,11 @@ export class OcrLLM {
   }
 
   /**
-   * Processes an array of page images in parallel and returns results in order.
-   * @param inputs - Array of image inputs representing pages
-   * @returns Array of page results in the same order as inputs
+   * Processes an array of images extracted from a PDF in parallel and returns OCR results in order.
+   * Each image represents a single page from the PDF document.
+   * @returns Array of OCR results in the same order as the input pages
    */
-  async pages(inputs: InputSource[]): Promise<PageResult[]> {
-    return processPages(inputs, this.config.provider, this.config.key);
+  async pdfImages(inputs: InputSource[]): Promise<PageResult[]> {
+    return processPdfImages(inputs, this.config.provider, this.config.key);
   }
 }

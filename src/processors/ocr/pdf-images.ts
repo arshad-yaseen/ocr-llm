@@ -4,14 +4,7 @@ import {_pm, report} from '../../logger';
 import {InputSource, PageResult, Provider} from '../../types';
 import {processImage} from './image';
 
-/**
- * Processes an array of page images in parallel and returns results in order.
- * @param inputs - Array of image inputs representing pages
- * @param provider - The OCR provider to use
- * @param apiKey - API key for authentication
- * @returns Array of page results in the same order as inputs
- */
-export async function processPages(
+export async function processPdfImages(
   inputs: InputSource[],
   provider: Provider,
   apiKey: string,

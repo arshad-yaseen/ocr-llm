@@ -13,13 +13,4 @@ export type PDFPageSelection =
   | number
   | number[];
 
-export type PDFSource =
-  | string
-  | URL
-  | ArrayBuffer
-  | File
-  | FileList
-  | File[]
-  | ArrayBuffer[]
-  | string[]
-  | URL[];
+export type PDFSource = string | URL | ArrayBuffer | File;

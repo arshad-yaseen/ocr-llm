@@ -12,28 +12,6 @@ import rehypeKatex from 'rehype-katex';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 
-const Preview = ({url, type}: {url: string; type: 'image' | 'pdf'}) => (
-  <div className="h-full w-full overflow-auto">
-    <div className="min-h-full w-full flex items-center justify-center p-4">
-      {type === 'image' ? (
-        <img
-          src={url}
-          alt="Preview"
-          className="max-h-full max-w-full object-contain rounded-lg shadow-sm"
-        />
-      ) : (
-        <object
-          data={url}
-          className="w-full h-full rounded-lg border-0 shadow-sm"
-          type="application/pdf"
-          aria-label="PDF preview">
-          <p>PDF preview is not available.</p>
-        </object>
-      )}
-    </div>
-  </div>
-);
-
 const SkeletonLoader = () => (
   <div className="p-4 space-y-4">
     {[...Array(15)].map((_, i) => (
@@ -152,7 +130,7 @@ const ContentDisplay = ({
   );
 };
 
-const Landing = ({onUpload}: {onUpload: (url: string | string[]) => void}) => (
+const Landing = ({onUpload}: {onUpload: (urls: string | string[]) => void}) => (
   <div className="flex flex-col items-center justify-center min-h-screen px-4 py-8 sm:px-8 md:px-12 lg:px-20 bg-neutral-50">
     <div className="max-w-3xl w-full space-y-10">
       <div className="space-y-6 text-center">
@@ -174,13 +152,13 @@ export default function Home() {
   const [contents, setContents] = useState<PageResult[] | ImageResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleUpload = async (url: string | string[]) => {
+  const handleUpload = async (urls: string | string[]) => {
     setIsLoading(true);
 
     try {
       const response = await fetch('/api/extract', {
         method: 'POST',
-        body: JSON.stringify({url}),
+        body: JSON.stringify({urls}),
       });
 
       const {result} = (await response.json()) ?? {};

@@ -12,13 +12,6 @@ import {InputSource, PageResult, Provider} from '../../types';
 import {getBufferFromInput} from '../../utils/buffer';
 import {processImage} from './image';
 
-/**
- * Processes a PDF input and extracts text content from each page.
- * @param input - PDF input source.
- * @param provider - The OCR provider to use.
- * @param apiKey - API key for authentication.
- * @returns An array of extracted text and metadata for each page.
- */
 export async function processPdf(
   input: InputSource,
   provider: Provider,

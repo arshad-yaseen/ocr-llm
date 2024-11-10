@@ -6,9 +6,6 @@ export type PDFToImagesOptions = {
   pages?: PDFPageSelection;
   output?: 'buffer' | 'base64' | 'blob' | 'dataurl';
   docParams?: PDFDocumentParams;
-  flat?: boolean;
 };
 
-export type PDFToImagesResult =
-  | (string | Blob | ArrayBuffer)[]
-  | (string | Blob | ArrayBuffer)[][];
+export type PDFToImagesResult = (string | Blob | ArrayBuffer)[];

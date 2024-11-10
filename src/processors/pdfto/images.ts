@@ -9,54 +9,30 @@ import {PDFToImagesOptions, PDFToImagesResult} from '../../types/pdfto/images';
 import {extractBase64FromDataURL} from '../../utils/common';
 import {convertPDFBase64ToBuffer, generatePDFPageRange} from '../../utils/pdf';
 import {configurePDFToImagesParameters} from '../../utils/pdfto/images';
-import {isBrowser} from '../../utils/platform';
-
-// Set the workerSrc for pdfjsLib
-pdfjsLib.GlobalWorkerOptions.workerSrc =
-  'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.1.81/pdf.worker.min.js';
 
 /**
- * Converts PDF files to images. Can handle single PDFs or multiple PDFs in batch.
- * @param source - The source PDF file(s). Accepts File, FileList, ArrayBuffer, URL, string (base64/URL), or arrays of these types
+ * Converts a single PDF file to images.
+ * @param source - The source PDF file. Accepts File, ArrayBuffer, URL, or string (base64/URL)
  * @param options - Configuration options for the conversion
  * @param options.format - Output image format ('png' or 'jpg'). Defaults to 'png'
  * @param options.scale - Scale factor for the output images. Defaults to 1
  * @param options.pages - Page selection ('all', 'first', 'last', page number, array of numbers, or range object). Defaults to 'all'
  * @param options.output - Output format ('buffer', 'base64', 'blob', 'dataurl'). Defaults to 'dataurl'
  * @param options.docParams - Additional PDF document parameters
- * @param options.flat - Whether to flatten results from multiple PDFs into a single array. Defaults to false
- * @returns Promise resolving to array of images. If flat=false, returns array of arrays (one per input PDF)
- * @throws Error if not run in browser environment
+ * @returns Promise resolving to an array of images
  */
 async function images(
   source: PDFSource,
   options?: PDFToImagesOptions,
 ): Promise<PDFToImagesResult> {
-  if (!isBrowser()) {
-    throw new Error(
-      "The function 'images' must be run in a browser environment.",
-    );
-  }
-
-  const sources =
-    source instanceof FileList && Array.isArray(source)
-      ? Array.from(source)
-      : [source];
-
-  const results = await Promise.all(
-    sources.map(async singleSource => {
-      const {documentParams, opts} = configurePDFToImagesParameters(
-        singleSource,
-        options,
-      );
-      return await processSinglePDF(documentParams, opts);
-    }),
+  const {documentParams, opts} = configurePDFToImagesParameters(
+    source,
+    options,
   );
-
-  return options?.flat ? results.flat() : results;
+  return await processPDF(documentParams, opts);
 }
 
-async function processSinglePDF(
+async function processPDF(
   documentParams: DocumentInitParameters,
   options: PDFToImagesOptions,
 ): Promise<(string | Blob | ArrayBuffer)[]> {

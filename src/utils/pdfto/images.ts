@@ -1,10 +1,11 @@
 import type {DocumentInitParameters} from 'pdfjs-dist/types/src/display/api';
 
 import {DEFAULT_PDF_TO_IMAGES_OPTIONS} from '../../constants/pdfto';
+import {PDFSource} from '../../types/pdfto';
 import {PDFToImagesOptions} from '../../types/pdfto/images';
 
 export function configurePDFToImagesParameters(
-  source: string | URL | ArrayBuffer | File,
+  source: PDFSource,
   options?: PDFToImagesOptions,
 ) {
   const {docParams, ...rest} = {

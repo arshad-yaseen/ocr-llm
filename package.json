@@ -2,16 +2,25 @@
   "name": "ocr-llm",
   "version": "0.3.12",
   "description": "Fast, ultra-accurate text extraction from any image or PDF, even challenging ones, with structured markdown output powered by vision models.",
-  "main": "./build/index.js",
-  "module": "./build/index.mjs",
-  "types": "./build/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./build/index.d.mts",
+      "import": "./build/index.mjs",
+      "require": "./build/index.js"
+    },
+    "./browser": {
+      "types": "./build/browser.d.mts",
+      "import": "./build/browser.mjs",
+      "require": "./build/browser.js"
+    }
+  },
   "files": [
     "build",
     "scripts"
   ],
   "scripts": {
-    "build": "tsup src/index.ts",
-    "dev": "tsup src/index.ts --watch",
+    "build": "tsup",
+    "dev": "tsup --watch",
     "dev:website": "pnpm -C website dev",
     "test": "vitest",
     "tsc": "tsc --noEmit",

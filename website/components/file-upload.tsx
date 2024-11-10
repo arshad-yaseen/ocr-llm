@@ -3,13 +3,13 @@
 import {ChangeEvent, FormEvent, useRef, useState} from 'react';
 
 import {UploadIcon} from 'lucide-react';
-import {pdfto} from 'ocr-llm';
+import {pdfto} from 'ocr-llm/browser';
 
 import {Button} from './ui/button';
 import {Input} from './ui/input';
 
 type FileUploadProps = {
-  onUpload: (url: string | string[]) => void;
+  onUpload: (urls: string | string[]) => void;
 };
 
 const FileUpload = ({onUpload}: FileUploadProps) => {

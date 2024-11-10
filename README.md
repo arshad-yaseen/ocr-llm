@@ -364,7 +364,7 @@ The browser-based PDF conversion eliminates the need for GraphicsMagick and Ghos
 
 ### Limitations
 
-- When hosting on Vercel, processing PDFs with more than 25 pages will trigger a 'FUNCTION_PAYLOAD_TOO_LARGE' error due to Vercel's 4.5MB function body size limit. Similar limitations may exist on other hosting platforms.
+- When hosting on Vercel, processing PDFs with more than 25 pages will trigger a `FUNCTION_PAYLOAD_TOO_LARGE` error due to Vercel's 4.5MB function body size limit. Similar limitations may exist on other hosting platforms.
 
 To handle this gracefully, implement a page limit check before processing:
 

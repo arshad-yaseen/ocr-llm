@@ -11,6 +11,7 @@ import Markdown from 'react-markdown';
 import rehypeKatex from 'rehype-katex';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
+import {toast} from 'sonner';
 
 const FileUpload = dynamic(() => import('@/components/file-upload'), {
   ssr: false,
@@ -116,7 +117,7 @@ export default function Home() {
       if (error instanceof DOMException && error.name === 'AbortError') {
         setContents([]);
       } else {
-        console.error('Error during extraction:', error);
+        toast.error('Error during extraction');
       }
     } finally {
       setIsLoading(false);
@@ -137,7 +138,7 @@ export default function Home() {
     <div className="w-full min-h-screen bg-neutral-50 flex overflow-hidden">
       <div
         className={cn(
-          'space-y-10 flex-grow px-4 w-full py-8 sm:px-8 md:px-12 lg:px-20 flex items-center justify-center flex-col h-screen transition-all duration-300',
+          'space-y-10 flex-grow px-4 w-full py-8 sm:px-8 md:px-12 lg:px-20 flex items-center justify-center flex-col h-screen transition-all duration-500',
           {
             'w-1/2': showContent,
           },
@@ -156,7 +157,7 @@ export default function Home() {
       </div>
       <div
         className={cn(
-          'flex w-0 transition-all duration-300 h-screen justify-center border-l border-neutral-300 bg-background relative',
+          'flex w-0 transition-all duration-500 h-screen justify-center border-l border-neutral-300 bg-background relative',
           {
             'w-1/2': showContent,
           },

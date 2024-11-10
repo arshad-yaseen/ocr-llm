@@ -3,6 +3,8 @@ import {DM_Mono, Inter} from 'next/font/google';
 
 import './globals.css';
 
+import {Toaster} from '@/components/ui/sonner';
+
 const fontSans = Inter({
   variable: '--font-sans',
   subsets: ['latin'],
@@ -30,6 +32,7 @@ export default function RootLayout({
       <body
         className={`${fontSans.variable} ${fontMono.variable} antialiased font-sans`}>
         {children}
+        <Toaster />
       </body>
     </html>
   );

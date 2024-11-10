@@ -234,30 +234,35 @@ results.forEach(page => {
 
 Here's how to implement PDF processing with OcrLLM in a Next.js application.
 
-#### API Route (`/pages/api/extract.ts`)
+#### API Route (`/app/api/extract/route.ts`)
 
 ```typescript
-// pages/api/extract.ts
-import type {NextApiRequest, NextApiResponse} from 'next';
+import {NextRequest, NextResponse} from 'next/server';
 
 import {OcrLLM} from 'ocr-llm';
+
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '10mb',
+    },
+  },
+  maxDuration: 60,
+};
 
 const ocrllm = new OcrLLM({
   provider: 'openai',
   key: process.env.OPENAI_API_KEY!,
 });
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
+export async function POST(req: NextRequest) {
   try {
-    const {urls} = req.body;
+    const {urls} = await req.json();
     const result = await ocrllm.pdfImages(urls);
-    res.status(200).json({result});
+    return NextResponse.json({result});
   } catch (error) {
     console.error('Failed to process PDF:', error);
-    res.status(500).json({error: 'Failed to process PDF'});
+    return NextResponse.json({error: 'Failed to process PDF'}, {status: 500});
   }
 }
 ```
@@ -265,7 +270,6 @@ export default async function handler(
 #### File Upload Component (`/components/FileUpload.tsx`)
 
 ```tsx
-// components/FileUpload.tsx
 import React from 'react';
 
 import {pdfto} from 'ocr-llm/browser';
@@ -363,6 +367,10 @@ This implementation:
 4. Returns structured results with page numbers and content.
 
 The browser-based PDF conversion eliminates the need for GraphicsMagick and Ghostscript, making it compatible with serverless platforms like Vercel.
+
+### Limitations
+
+- The very large PDFs use
 
 ### `pdfto.images` API Reference
 

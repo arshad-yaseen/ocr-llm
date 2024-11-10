@@ -10,17 +10,6 @@ import {extractBase64FromDataURL} from '../../utils/common';
 import {convertPDFBase64ToBuffer, generatePDFPageRange} from '../../utils/pdf';
 import {configurePDFToImagesParameters} from '../../utils/pdfto/images';
 
-/**
- * Converts a single PDF file to images.
- * @param source - The source PDF file. Accepts File, ArrayBuffer, URL, or string (base64/URL)
- * @param options - Configuration options for the conversion
- * @param options.format - Output image format ('png' or 'jpg'). Defaults to 'png'
- * @param options.scale - Scale factor for the output images. Defaults to 1
- * @param options.pages - Page selection ('all', 'first', 'last', page number, array of numbers, or range object). Defaults to 'all'
- * @param options.output - Output format ('buffer', 'base64', 'blob', 'dataurl'). Defaults to 'dataurl'
- * @param options.docParams - Additional PDF document parameters
- * @returns Promise resolving to an array of images
- */
 async function images(
   source: PDFSource,
   options?: PDFToImagesOptions,
@@ -60,11 +49,13 @@ async function processPDF(
     throw new Error('Invalid pages option');
   }
 
-  const images = await Promise.all(
-    pageNumbers.map(async pageNumber =>
-      renderPageToImage(pdfDoc, pageNumber, options),
-    ),
-  );
+  const images = [];
+  for (const pageNumber of pageNumbers) {
+    const image = await renderPageToImage(pdfDoc, pageNumber, options);
+    images.push(image);
+    // Yield to event loop to prevent UI blocking
+    await new Promise(resolve => setTimeout(resolve, 0));
+  }
 
   return images;
 }

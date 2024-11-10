@@ -2,7 +2,7 @@
 
 import {ChangeEvent, FormEvent, useRef, useState} from 'react';
 
-import {UploadIcon} from 'lucide-react';
+import {Loader2, UploadIcon} from 'lucide-react';
 import {pdfto} from 'ocr-llm/browser';
 
 import {Button} from './ui/button';
@@ -15,12 +15,14 @@ type FileUploadProps = {
 const FileUpload = ({onUpload}: FileUploadProps) => {
   const [url, setUrl] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isConverting, setIsConverting] = useState(false);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (url) {
       try {
         setUrl('');
+        setIsConverting(true);
         if (url.toLowerCase().endsWith('.pdf')) {
           const urls = (await pdfto.images(url, {
             output: 'dataurl',
@@ -31,6 +33,8 @@ const FileUpload = ({onUpload}: FileUploadProps) => {
         }
       } catch (error) {
         setUrl('');
+      } finally {
+        setIsConverting(false);
       }
     }
   };
@@ -38,6 +42,8 @@ const FileUpload = ({onUpload}: FileUploadProps) => {
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    setIsConverting(true);
 
     if (file.type === 'application/pdf') {
       const urls = (await pdfto.images(file, {
@@ -52,6 +58,8 @@ const FileUpload = ({onUpload}: FileUploadProps) => {
       };
       reader.readAsDataURL(file);
     }
+
+    setIsConverting(false);
   };
 
   return (
@@ -64,8 +72,9 @@ const FileUpload = ({onUpload}: FileUploadProps) => {
           value={url}
           onChange={e => setUrl(e.target.value)}
         />
-        <Button type="submit" disabled={!url}>
-          Submit
+        <Button type="submit" disabled={!url || isConverting}>
+          {isConverting && <Loader2 className="size-4 animate-spin" />}
+          {isConverting ? 'Rendering' : 'Submit'}
         </Button>
       </div>
       <div className="flex items-center gap-4">
@@ -81,9 +90,14 @@ const FileUpload = ({onUpload}: FileUploadProps) => {
           type="button"
           variant="outline"
           className="gap-2"
+          disabled={isConverting}
           onClick={() => fileInputRef.current?.click()}>
-          <UploadIcon className="size-4" />
-          Upload File
+          {isConverting ? (
+            <Loader2 className="size-4 animate-spin" />
+          ) : (
+            <UploadIcon className="size-4" />
+          )}
+          {isConverting ? 'Rendering' : 'Upload File'}
         </Button>
       </div>
     </form>

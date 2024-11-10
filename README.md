@@ -36,7 +36,7 @@ Fast, ultra-accurate text extraction from any image or PDF—including challengi
 - [Used Models](#used-models)
 - [Browser-Specific Implementation](#browser-specific-implementation)
   - [`pdfto.images` API Reference](#pdftoimages-api-reference)
-  - [Limitations](#limitations)
+  - [Limitation](#limitation)
 - [Contributing](#contributing)
 
 ## Installation

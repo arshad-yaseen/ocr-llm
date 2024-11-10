@@ -4,12 +4,13 @@ Fast, ultra-accurate text extraction from any image or PDF—including challengi
 
 ## Features
 
-- 🚀 Extracts text from any image or PDF, even low-quality ones
-- 📝 Outputs clean Markdown
-- 🎯 Handles tables, equations, handwriting, complex layouts, etc.
-- ⚡ Processes multiple pages in parallel
-- 🔄 Retries failed extractions automatically
-- ✍️ Recognizes any font or writing style
+- 🔮 Extracts text from any image or PDF, even low-quality ones
+- ✨ Outputs clean Markdown
+- 🎨 Handles tables, equations, handwriting, complex layouts, etc.
+- 🚄 Processes multiple pages in parallel
+- 🎯 Retries failed extractions automatically
+- 🖋️ Recognizes any font or writing style
+- ⚡ Caches results for faster reprocessing
 
 ## Table of Contents
 

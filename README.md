@@ -4,12 +4,12 @@ Fast, ultra-accurate text extraction from any image or PDF—including challengi
 
 ## Features
 
-- 🚀 **Extracts text from any image or PDF**, even low-quality ones
-- 📝 **Outputs clean Markdown**
-- 🎯 **Handles tables, equations, handwriting, complex layouts, etc.**
-- ⚡ **Processes multiple pages in parallel**
-- 🔄 **Retries failed extractions automatically**
-- ✍️ **Recognizes any font or writing style**
+- 🚀 Extracts text from any image or PDF, even low-quality ones
+- 📝 Outputs clean Markdown
+- 🎯 Handles tables, equations, handwriting, complex layouts, etc.
+- ⚡ Processes multiple pages in parallel
+- 🔄 Retries failed extractions automatically
+- ✍️ Recognizes any font or writing style
 
 ## Table of Contents
 
@@ -274,7 +274,7 @@ interface FileUploadProps {
   onUpload: (urls: string[]) => void;
 }
 
-const FileUpload: React.FC<FileUploadProps> = ({onUpload}) => {
+const FileUpload = ({onUpload}: FileUploadProps) => {
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
@@ -305,21 +305,17 @@ export default FileUpload;
 #### Main Page (`/pages/index.tsx`)
 
 ```tsx
-// pages/index.tsx
-import React, {useState} from 'react';
+import {useState} from 'react';
 import dynamic from 'next/dynamic';
+
+import type {PageResult} from 'ocr-llm';
 
 // Prevent SSR warnings from pdfto.images()
 const FileUpload = dynamic(() => import('../components/FileUpload'), {
   ssr: false,
 });
 
-interface PageResult {
-  page: number;
-  content: string;
-}
-
-const Home: React.FC = () => {
+const Home = () => {
   const [pages, setPages] = useState<PageResult[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -361,10 +357,10 @@ export default Home;
 
 This implementation:
 
-1. **Converts PDFs to images in the browser** using `pdfto.images()`.
-2. **Sends the image data URLs to the API**.
-3. **Processes all pages** on the server using `ocrllm.pdfImages()`.
-4. **Returns structured results** with page numbers and content.
+1. Converts PDFs to images in the browser using `pdfto.images()`.
+2. Sends the image data URLs to the API.
+3. Processes all pages on the server using `ocrllm.pdfImages()`.
+4. Returns structured results with page numbers and content.
 
 The browser-based PDF conversion eliminates the need for GraphicsMagick and Ghostscript, making it compatible with serverless platforms like Vercel.
 

@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic';
 import {Button} from '@/components/ui/button';
 import {cn} from '@/lib/utils';
 import {Loader2, XIcon} from 'lucide-react';
-import {ImageResult, PageResult} from 'ocr-llm';
+import type {ImageResult, PageResult} from 'ocr-llm';
 import Markdown from 'react-markdown';
 import rehypeKatex from 'rehype-katex';
 import remarkGfm from 'remark-gfm';

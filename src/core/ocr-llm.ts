@@ -22,27 +22,37 @@ export class OcrLLM {
   }
 
   /**
-   * Processes an image and extracts text content.
-   * @param input - Image input source.
-   * @returns The extracted text and metadata.
+   * Processes a single image and extracts text content using OCR.
+   * @param input - Image input source (file path, URL, base64 string, or Buffer)
+   * @returns Promise resolving to an ImageResult containing:
+   *  - content: Extracted text in markdown format
+   *  - metadata: Processing metadata like timestamp and file size
    */
   async image(input: InputSource): Promise<ImageResult> {
     return processImage(input, this.config.provider, this.config.key);
   }
 
   /**
-   * Processes a PDF and extracts text content from each page.
-   * @param input - PDF input source.
-   * @returns An array of extracted text and metadata for each page.
+   * Processes a PDF document and extracts text content from each page using OCR.
+   * @param input - PDF input source (file path, URL, base64 string, or Buffer)
+   * @returns Promise resolving to an array of PageResult objects, each containing:
+   *  - page: Page number in the document
+   *  - content: Extracted text in markdown format
+   *  - metadata: Processing metadata like timestamp and file size
    */
   async pdf(input: InputSource): Promise<PageResult[]> {
     return processPdf(input, this.config.provider, this.config.key);
   }
 
   /**
-   * Processes an array of images extracted from a PDF in parallel and returns OCR results in order.
-   * Each image represents a single page from the PDF document.
-   * @returns Array of OCR results in the same order as the input pages
+   * Processes multiple PDF page images in parallel using OCR.
+   * This method is useful when you already have individual page images extracted from a PDF.
+   * Processing happens concurrently for better performance.
+   * @param inputs - Array of image input sources (file paths, URLs, base64 strings, or Buffers), each representing a PDF page
+   * @returns Promise resolving to an array of PageResult objects in the same order as inputs, each containing:
+   *  - page: Page number in the document
+   *  - content: Extracted text in markdown format
+   *  - metadata: Processing metadata like timestamp and file size
    */
   async pdfImages(inputs: InputSource[]): Promise<PageResult[]> {
     return processPdfImages(inputs, this.config.provider, this.config.key);

@@ -2,14 +2,7 @@ import {NextRequest, NextResponse} from 'next/server';
 
 import {OcrLLM} from 'ocr-llm';
 
-export const config = {
-  api: {
-    bodyParser: {
-      sizeLimit: '10mb',
-    },
-  },
-  maxDuration: 60,
-};
+export const maxDuration = 60;
 
 const ocrllm = new OcrLLM({
   provider: 'openai',

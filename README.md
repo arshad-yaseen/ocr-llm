@@ -242,14 +242,7 @@ import {NextRequest, NextResponse} from 'next/server';
 
 import {OcrLLM} from 'ocr-llm';
 
-export const config = {
-  api: {
-    bodyParser: {
-      sizeLimit: '10mb',
-    },
-  },
-  maxDuration: 60,
-};
+export const maxDuration = 60;
 
 const ocrllm = new OcrLLM({
   provider: 'openai',
@@ -371,7 +364,20 @@ The browser-based PDF conversion eliminates the need for GraphicsMagick and Ghos
 
 ### Limitations
 
-- The very large PDFs use
+- When hosting on Vercel, processing PDFs with more than 25 pages will trigger a 'FUNCTION_PAYLOAD_TOO_LARGE' error due to Vercel's 4.5MB function body size limit. Similar limitations may exist on other hosting platforms.
+
+To handle this gracefully, implement a page limit check before processing:
+
+```typescript
+const urls = await pdfto.images(pdfFile, {
+  output: 'dataurl',
+});
+if (urls.length >= 25) {
+  toast.error('Please upload a PDF with fewer than 25 pages');
+} else {
+  onUpload(urls);
+}
+```
 
 ### `pdfto.images` API Reference
 

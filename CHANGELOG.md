@@ -1,13 +1,10 @@
-
-
 ## [0.4.4](https://github.com/arshad-yaseen/ocr-llm/compare/0.4.3...0.4.4) (2024-11-10)
-
 
 ### 🔧 Maintenance
 
-* cache strategy ([0eb280e](https://github.com/arshad-yaseen/ocr-llm/commit/0eb280e9516bf2c9763bbf22f60285e9257e1fbe))
-* lock ([8732fce](https://github.com/arshad-yaseen/ocr-llm/commit/8732fce851ba5be3580c2ac7a85ed25395978b04))
-* lock ([4e7349c](https://github.com/arshad-yaseen/ocr-llm/commit/4e7349c6cf92036a63c7f112f7c312ec1590c6c9))
+- cache strategy ([0eb280e](https://github.com/arshad-yaseen/ocr-llm/commit/0eb280e9516bf2c9763bbf22f60285e9257e1fbe))
+- lock ([8732fce](https://github.com/arshad-yaseen/ocr-llm/commit/8732fce851ba5be3580c2ac7a85ed25395978b04))
+- lock ([4e7349c](https://github.com/arshad-yaseen/ocr-llm/commit/4e7349c6cf92036a63c7f112f7c312ec1590c6c9))
 
 ## [0.4.3](https://github.com/arshad-yaseen/ocr-llm/compare/0.4.1...0.4.3) (2024-11-10)
 

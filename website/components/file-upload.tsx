@@ -4,6 +4,7 @@ import {ChangeEvent, FormEvent, useRef, useState} from 'react';
 
 import {Loader2, UploadIcon} from 'lucide-react';
 import {pdfto} from 'ocr-llm/browser';
+import {toast} from 'sonner';
 
 import {Button} from './ui/button';
 import {Input} from './ui/input';
@@ -27,7 +28,13 @@ const FileUpload = ({onUpload}: FileUploadProps) => {
           const urls = (await pdfto.images(url, {
             output: 'dataurl',
           })) as string[];
-          onUpload(urls);
+          if (urls.length >= 25) {
+            toast.error(
+              'PDF must be less than 25 pages. Please try again with a shorter document.',
+            );
+          } else {
+            onUpload(urls);
+          }
         } else {
           onUpload(url);
         }
@@ -49,7 +56,13 @@ const FileUpload = ({onUpload}: FileUploadProps) => {
       const urls = (await pdfto.images(file, {
         output: 'dataurl',
       })) as string[];
-      onUpload(urls);
+      if (urls.length >= 25) {
+        toast.error(
+          'PDF must be less than 25 pages. Please try again with a shorter document.',
+        );
+      } else {
+        onUpload(urls);
+      }
     } else {
       const reader = new FileReader();
       reader.onload = () => {

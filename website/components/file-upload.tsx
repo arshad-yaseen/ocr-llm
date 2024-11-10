@@ -3,12 +3,13 @@
 import {ChangeEvent, FormEvent, useRef, useState} from 'react';
 
 import {UploadIcon} from 'lucide-react';
+import {pdfto} from 'ocr-llm';
 
 import {Button} from './ui/button';
 import {Input} from './ui/input';
 
 type FileUploadProps = {
-  onUpload: (url: string, type: 'image' | 'pdf') => void;
+  onUpload: (url: string | string[]) => void;
 };
 
 const FileUpload = ({onUpload}: FileUploadProps) => {
@@ -18,9 +19,8 @@ const FileUpload = ({onUpload}: FileUploadProps) => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (url) {
-      const type = url.toLowerCase().endsWith('.pdf') ? 'pdf' : 'image';
-      onUpload(url, type);
-      setUrl(''); // Clear input after submission
+      onUpload(url);
+      setUrl('');
     }
   };
 
@@ -28,16 +28,13 @@ const FileUpload = ({onUpload}: FileUploadProps) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      const base64 = reader.result as string;
-      const type = file.type === 'application/pdf' ? 'pdf' : 'image';
-      onUpload(base64, type);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = ''; // Clear file input after upload
-      }
-    };
-    reader.readAsDataURL(file);
+    const urls = (await pdfto.images(file, {
+      output: 'dataurl',
+    })) as string[];
+
+    console.log(urls);
+
+    onUpload(urls);
   };
 
   return (

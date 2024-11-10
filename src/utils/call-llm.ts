@@ -5,7 +5,7 @@ import {
   RETRY_DELAY,
 } from '../constants';
 import {_pm} from '../logger';
-import {ChatCompletion, Provider} from '../types';
+import type {ChatCompletion, Provider} from '../types';
 import {delay} from '../utils/delay';
 import {fetchWithTimeout} from './fetch-with-timeout';
 import {

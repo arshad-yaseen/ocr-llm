@@ -8,5 +8,5 @@ export default defineConfig({
   format: ['esm', 'cjs'],
   clean: true,
   dts: true,
-  external: ['pdf2pic', 'pdf-lib'],
+  external: ['pdf2pic', 'pdf-lib', 'pdfjs-dist'],
 });

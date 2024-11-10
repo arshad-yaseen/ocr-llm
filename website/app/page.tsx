@@ -152,11 +152,7 @@ const ContentDisplay = ({
   );
 };
 
-const Landing = ({
-  onUpload,
-}: {
-  onUpload: (url: string, type: 'image' | 'pdf') => void;
-}) => (
+const Landing = ({onUpload}: {onUpload: (url: string | string[]) => void}) => (
   <div className="flex flex-col items-center justify-center min-h-screen px-4 py-8 sm:px-8 md:px-12 lg:px-20 bg-neutral-50">
     <div className="max-w-3xl w-full space-y-10">
       <div className="space-y-6 text-center">
@@ -177,22 +173,18 @@ const Landing = ({
 export default function Home() {
   const [contents, setContents] = useState<PageResult[] | ImageResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [previewUrl, setPreviewUrl] = useState<string>('');
-  const [fileType, setFileType] = useState<'image' | 'pdf' | null>(null);
 
-  const handleUpload = async (url: string, type: 'image' | 'pdf') => {
+  const handleUpload = async (url: string | string[]) => {
     setIsLoading(true);
-    setPreviewUrl(url);
-    setFileType(type);
 
     try {
       const response = await fetch('/api/extract', {
         method: 'POST',
-        body: JSON.stringify({url, type}),
+        body: JSON.stringify({url}),
       });
 
       const {result} = (await response.json()) ?? {};
-      setContents(type === 'image' ? [result] : result);
+      setContents(!Array.isArray(result) ? [result] : result);
     } finally {
       setIsLoading(false);
     }
@@ -200,12 +192,10 @@ export default function Home() {
 
   const handleReset = () => {
     setContents([]);
-    setPreviewUrl('');
-    setFileType(null);
     setIsLoading(false);
   };
 
-  if (previewUrl && fileType) {
+  if (contents.length > 0) {
     return (
       <div className="flex flex-col h-screen max-h-screen">
         <header className="flex-none flex items-center justify-between px-4 sm:px-6 md:px-8 lg:px-12 gap-6 pt-6">
@@ -216,9 +206,6 @@ export default function Home() {
         </header>
         <main className="flex-1 min-h-0 px-4 sm:px-6 md:px-8 lg:px-12 py-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full">
-            <div className="bg-background rounded-xl border border-neutral-200 overflow-hidden">
-              <Preview url={previewUrl} type={fileType} />
-            </div>
             <div className="bg-background rounded-xl border border-neutral-200 overflow-hidden">
               <ContentDisplay contents={contents} isLoading={isLoading} />
             </div>

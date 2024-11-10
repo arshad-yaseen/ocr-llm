@@ -28,5 +28,10 @@ export async function getBufferFromInput(input: InputSource): Promise<Buffer> {
       throw new Error(`Failed to read input: ${_pm(error)}`);
     }
   }
+
+  if (!input?.length) {
+    throw new Error('Empty or invalid input');
+  }
+
   return input;
 }

@@ -1,8 +1,8 @@
-import {_pm, report} from '../logger';
-import {ImageResult, InputSource, Provider} from '../types';
-import {getBufferFromInput} from '../utils/buffer';
-import {callLLM} from '../utils/call-llm';
-import {removeCodeBlockMarkers} from '../utils/string';
+import {_pm, report} from '../../logger';
+import {ImageResult, InputSource, Provider} from '../../types';
+import {getBufferFromInput} from '../../utils/buffer';
+import {callLLM} from '../../utils/call-llm';
+import {removeCodeBlockMarkers} from '../../utils/string';
 
 /**
  * Processes an image input and extracts text content.
@@ -17,10 +17,6 @@ export async function processImage(
 ): Promise<ImageResult> {
   try {
     const imageBuffer = await getBufferFromInput(input);
-
-    if (!imageBuffer?.length) {
-      throw new Error('Empty or invalid image buffer');
-    }
 
     const base64Image = imageBuffer.toString('base64');
     const content = await callLLM(apiKey, base64Image, provider);

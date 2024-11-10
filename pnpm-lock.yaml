@@ -85,7 +85,7 @@ importers:
         version: 0.4.3(react-dom@19.0.0-rc-02c0e824-20241028(react@19.0.0-rc-02c0e824-20241028))(react@19.0.0-rc-02c0e824-20241028)
       ocr-llm:
         specifier: ^0.4.0
-        version: 0.4.1
+        version: 0.4.3
       react:
         specifier: 19.0.0-rc-02c0e824-20241028
         version: 19.0.0-rc-02c0e824-20241028
@@ -4595,10 +4595,10 @@ packages:
       }
     engines: {node: '>= 6'}
 
-  ocr-llm@0.4.1:
+  ocr-llm@0.4.3:
     resolution:
       {
-        integrity: sha512-75wevHV8XGSq+VfSjZhunCVP02Fykot7IhJ62bzNCqwvMOIknaW5dWiMlBEq3VhwpFubjwb18GpavORaWKISIQ==,
+        integrity: sha512-Csa8+TtH7poA2Rfn5bLx3D9Du6CBC/f3zLWjsktLNBe8URiUq93YGfVUtq6F9UM0Kbb+A/azF2oGijtYa1szQA==,
       }
 
   once@1.4.0:
@@ -9092,7 +9092,7 @@ snapshots:
 
   object-hash@3.0.0: {}
 
-  ocr-llm@0.4.1:
+  ocr-llm@0.4.3:
     dependencies:
       pdf-lib: 1.17.1
       pdf2pic: 3.1.3

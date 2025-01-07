@@ -1,6 +1,6 @@
 {
   "name": "ocr-llm",
-  "version": "0.4.9",
+  "version": "0.4.10",
   "description": "Fast, ultra-accurate text extraction from any image or PDF, even challenging ones, with structured markdown output powered by vision models.",
   "types": "./build/index.d.mts",
   "import": "./build/index.mjs",

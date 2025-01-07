@@ -1,17 +1,13 @@
-
-
 ## [0.4.10](https://github.com/arshad-yaseen/ocr-llm/compare/0.4.9...0.4.10) (2025-01-07)
-
 
 ### 📚 Documentation
 
-* improve browser implementation ([3f04214](https://github.com/arshad-yaseen/ocr-llm/commit/3f04214c0d1109a908dc0915cdf4f7dd24c0700c))
-
+- improve browser implementation ([3f04214](https://github.com/arshad-yaseen/ocr-llm/commit/3f04214c0d1109a908dc0915cdf4f7dd24c0700c))
 
 ### 🔧 Maintenance
 
-* lock [skip-release] ([aa39156](https://github.com/arshad-yaseen/ocr-llm/commit/aa39156a28f047665fa7616c6ccd33d29dca02fd))
-* update website package [skip-release] ([6308e94](https://github.com/arshad-yaseen/ocr-llm/commit/6308e944f982ea606d29558215c7c50d4ed1c4fb))
+- lock [skip-release] ([aa39156](https://github.com/arshad-yaseen/ocr-llm/commit/aa39156a28f047665fa7616c6ccd33d29dca02fd))
+- update website package [skip-release] ([6308e94](https://github.com/arshad-yaseen/ocr-llm/commit/6308e944f982ea606d29558215c7c50d4ed1c4fb))
 
 ## [0.4.9](https://github.com/arshad-yaseen/ocr-llm/compare/0.4.8...0.4.9) (2024-11-10)
 

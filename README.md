@@ -34,8 +34,6 @@ Fast, ultra-accurate text extraction from any image or PDF—including challengi
 - [Error Handling](#error-handling)
 - [Used Models](#used-models)
 - [Browser-Specific Implementation](#browser-specific-implementation)
-  - [`pdfto.images` API Reference](#pdftoimages-api-reference)
-  - [Limitation](#limitation)
 - [Contributing](#contributing)
 
 ## Installation
@@ -262,39 +260,6 @@ export async function POST(req: NextRequest) {
     );
   }
 }
-```
-
-### Limitation
-
-Remember that we are sending the data URL of each PDF page as an array to the API or Next.js API route handler. When hosting on providers like Vercel, processing PDFs with more than 25 pages (depending on the content size of each page) may trigger a `FUNCTION_PAYLOAD_TOO_LARGE` error due to their 4.5MB function body size limit. Similar limitations may exist on other hosting platforms.
-
-### `pdfto.images` API Reference
-
-```typescript
-pdfto.images(pdfFile, options);
-```
-
-**Parameters**:
-
-- `pdfFile`: The PDF file as a `File` object.
-- `options` (optional):
-  - `format` (string): Output image format. Options are `'png'` or `'jpg'`. Default is `'png'`.
-  - `scale` (number): Scale factor for the output images. Increase for better quality. Default is `1.0`.
-  - `pages` (string | number | number[] | object): Page selection. Options are `'all'`, `'first'`, `'last'`, a page number, an array of page numbers, or an object `{ start?: number, end?: number }`. Default is `'all'`.
-  - `output` (string): Output format. Options are `'buffer'`, `'base64'`, `'blob'`, or `'dataurl'`. Default is `'base64'`.
-  - `docParams` (object): Additional PDF document parameters.
-
-**Returns**: `Promise<string[]>` - An array of image data in the specified output format.
-
-**Example Usage with Options**:
-
-```typescript
-const urls = await pdfto.images(pdfFile, {
-  format: 'png',
-  scale: 2.0,
-  pages: {start: 1, end: 5},
-  output: 'dataurl',
-});
 ```
 
 ## Contributing

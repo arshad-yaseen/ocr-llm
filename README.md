@@ -199,6 +199,8 @@ npm install pdf-to-images-browser
 Then in your client component:
 
 ```typescript
+import pdfToImages from 'pdf-to-images-browser';
+
 const handlePdfUpload = async (pdfFile: File) => {
   try {
     // Convert PDF to images

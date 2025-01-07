@@ -1,4 +1,4 @@
-export {OcrLLM} from './core/ocr-llm';
+export {OcrLLM} from './core';
 
 export {
   OcrLLMConfig,

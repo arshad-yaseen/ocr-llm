@@ -5,11 +5,11 @@ import * as path from 'path';
 import {PDFDocument} from 'pdf-lib';
 import {fromPath} from 'pdf2pic';
 
-import {ConcurrencyLimit} from '../../classes/concurrency-limit';
-import {MAX_CONCURRENT_REQUESTS} from '../../constants';
-import {_pm, report} from '../../logger';
-import {InputSource, PageResult, Provider} from '../../types';
-import {getBufferFromInput} from '../../utils/buffer';
+import {ConcurrencyLimit} from '../classes/concurrency-limit';
+import {MAX_CONCURRENT_REQUESTS} from '../constants';
+import {_pm, report} from '../logger';
+import {InputSource, PageResult, Provider} from '../types';
+import {getBufferFromInput} from '../utils/buffer';
 import {processImage} from './image';
 
 export async function processPdf(

@@ -1,4 +1,4 @@
-import {PROMPT_TEMPLATE} from '../constants';
+import {DEFAULT_PROMPT_TEMPLATE} from '../constants';
 import {DEFAULT_MODEL_TEMPERATURE} from '../constants/llm';
 import type {
   OpenAIChatCompletion,
@@ -25,7 +25,7 @@ const openaiHandler: ProviderHandler<'openai'> = {
         {
           role: 'user',
           content: [
-            {type: 'text', text: PROMPT_TEMPLATE},
+            {type: 'text', text: DEFAULT_PROMPT_TEMPLATE},
             {
               type: 'image_url',
               image_url: {

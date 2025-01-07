@@ -11,10 +11,3 @@ export class InvalidProviderError extends OcrLLMError {
     this.name = 'InvalidProviderError';
   }
 }
-
-export class InvalidInputError extends OcrLLMError {
-  constructor(message: string) {
-    super(message);
-    this.name = 'InvalidInputError';
-  }
-}

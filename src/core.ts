@@ -1,9 +1,8 @@
-import {SUPPORTED_PROVIDERS} from '../constants';
-import {InvalidProviderError} from '../errors';
-import {processImage} from '../processors/ocr/image';
-import {processPdf} from '../processors/ocr/pdf';
-import {processPdfImages} from '../processors/ocr/pdf-images';
-import {ImageResult, InputSource, OcrLLMConfig, PageResult} from '../types';
+import {SUPPORTED_PROVIDERS} from './constants';
+import {InvalidProviderError} from './errors';
+import {processImage} from './processors/image';
+import {processPdf} from './processors/pdf';
+import {ImageResult, InputSource, OcrLLMConfig, PageResult} from './types';
 
 /**
  * Main class for the OcrLLM OCR engine.
@@ -42,19 +41,5 @@ export class OcrLLM {
    */
   async pdf(input: InputSource): Promise<PageResult[]> {
     return processPdf(input, this.config.provider, this.config.key);
-  }
-
-  /**
-   * Processes multiple PDF page images in parallel using OCR.
-   * This method is useful when you already have individual page images extracted from a PDF.
-   * Processing happens concurrently for better performance.
-   * @param inputs - Array of image input sources (file paths, URLs, base64 strings, or Buffers), each representing a PDF page
-   * @returns Promise resolving to an array of PageResult objects in the same order as inputs, each containing:
-   *  - page: Page number in the document
-   *  - content: Extracted text in markdown format
-   *  - metadata: Processing metadata like timestamp and file size
-   */
-  async pdfImages(inputs: InputSource[]): Promise<PageResult[]> {
-    return processPdfImages(inputs, this.config.provider, this.config.key);
   }
 }

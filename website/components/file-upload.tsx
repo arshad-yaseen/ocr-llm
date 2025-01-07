@@ -3,14 +3,14 @@
 import {ChangeEvent, FormEvent, useRef, useState} from 'react';
 
 import {Loader2, UploadIcon} from 'lucide-react';
-import {pdfto} from 'ocr-llm/browser';
+import pdfToImages from 'pdf-to-images-browser';
 import {toast} from 'sonner';
 
 import {Button} from './ui/button';
 import {Input} from './ui/input';
 
 type FileUploadProps = {
-  onUpload: (urls: string | string[]) => void;
+  onUpload: (formData: FormData) => void;
 };
 
 const FileUpload = ({onUpload}: FileUploadProps) => {
@@ -18,66 +18,60 @@ const FileUpload = ({onUpload}: FileUploadProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isConverting, setIsConverting] = useState(false);
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    if (url) {
-      try {
-        setUrl('');
-        setIsConverting(true);
-        if (url.toLowerCase().endsWith('.pdf')) {
-          const urls = (await pdfto.images(url, {
-            output: 'dataurl',
-          })) as string[];
-          if (urls.length >= 25) {
-            toast.error(
-              'PDF must be less than 25 pages. Please try again with a shorter document.',
-            );
-          } else {
-            onUpload(urls);
-          }
-        } else {
-          onUpload(url);
-        }
-      } catch (error) {
-        setUrl('');
-      } finally {
-        setIsConverting(false);
+  const handleConvert = async ({
+    pdfFile,
+    url,
+  }: {
+    pdfFile?: File;
+    url?: string;
+  }) => {
+    try {
+      setIsConverting(true);
+      if (!pdfFile) {
+        toast.error('No file found');
+        return;
       }
+
+      let images: Blob[] = [];
+      if (pdfFile) {
+        images = (await pdfToImages(pdfFile, {
+          output: 'blob',
+        })) as Blob[];
+      }
+
+      const formData = new FormData();
+      images.forEach((image, index) => {
+        formData.append('images', image as Blob, `page-${index + 1}.png`);
+      });
+
+      if (url) {
+        formData.append('url', url);
+      }
+
+      onUpload(formData);
+    } catch (error) {
+      toast.error('Error processing PDF');
+    } finally {
+      setIsConverting(false);
     }
   };
 
-  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+  const handleUrlSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    handleConvert({url});
+  };
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setUrl('');
     const file = e.target.files?.[0];
-    if (!file) return;
-
-    setIsConverting(true);
-
-    if (file.type === 'application/pdf') {
-      const urls = (await pdfto.images(file, {
-        output: 'dataurl',
-      })) as string[];
-      if (urls.length >= 25) {
-        toast.error(
-          'PDF must be less than 25 pages. Please try again with a shorter document.',
-        );
-      } else {
-        onUpload(urls);
-      }
-    } else {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const dataUrl = reader.result as string;
-        onUpload(dataUrl);
-      };
-      reader.readAsDataURL(file);
+    if (file) {
+      handleConvert({pdfFile: file});
     }
-
-    setIsConverting(false);
   };
 
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={handleUrlSubmit}
       className="flex flex-col w-full items-center gap-4 mt-10">
       <div className="flex w-full max-w-lg gap-2">
         <Input

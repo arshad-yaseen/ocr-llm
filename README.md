@@ -31,7 +31,6 @@ Fast, ultra-accurate text extraction from any image or PDF—including challengi
     - [`ocrllm.image(input)`](#ocrllmimageinput)
   - [PDF Processing](#pdf-processing)
     - [`ocrllm.pdf(input)`](#ocrllmpdfinput)
-    - [`ocrllm.pdfImages(inputs)`](#ocrllmpdfimagesinputs)
 - [Error Handling](#error-handling)
 - [Used Models](#used-models)
 - [Browser-Specific Implementation](#browser-specific-implementation)
@@ -165,18 +164,6 @@ Processes a PDF document.
     - `content` (string): Extracted text in Markdown format
     - `metadata` (Object): Processing metadata
 
-#### `ocrllm.pdfImages(inputs)`
-
-Processes multiple PDF page images.
-
-- **Parameters**:
-  - `inputs` (Array<string | Buffer>): Array of image URLs, base64 strings, or Buffers
-- **Returns**: `Promise<PageResult[]>`
-  - **PageResult**:
-    - `page` (number): Page number
-    - `content` (string): Extracted text in Markdown format
-    - `metadata` (Object): Processing metadata
-
 ## Error Handling
 
 OcrLLM includes built-in error handling with detailed error messages and automatic retries for transient failures.
@@ -199,34 +186,82 @@ OcrLLM uses the following model:
 
 ## Browser-Specific Implementation
 
-When using OcrLLM in serverless environments like Vercel (for example, when hosting a Next.js application that implements text extraction in an API route handler), the core library's PDF processing requires system-level dependencies (GraphicsMagick, Ghostscript) that cannot be installed. However, OcrLLM provides a browser-specific implementation that can handle the PDF-to-image conversion step directly in the browser.
+When using OcrLLM in serverless environments like Vercel, the core library's PDF processing requires system-level dependencies (GraphicsMagick, Ghostscript) that cannot be installed. However, you can use the `pdf-to-images-browser` package to handle PDF-to-image conversion directly in the browser without any system dependencies or configuration.
 
-By using the browser package for PDF conversion and the main OcrLLM package for text extraction, you can maintain full functionality without needing system dependencies on your server. This hybrid approach gives you the best of both worlds: client-side PDF handling and server-side OCR processing.
+By using `pdf-to-images-browser` for PDF conversion in the client and OcrLLM for text extraction in the server, you can maintain full functionality without needing system dependencies on your server. This hybrid approach gives you the best of both worlds: client-side PDF handling and server-side OCR processing.
 
-First, convert the PDF to images in the browser:
+We are using Next.js to demonstrate the browser implementation. The same technique can be applied to any browser environment where you need to process PDFs without server-side dependencies.
 
-```typescript
-import {pdfto} from 'ocr-llm/browser';
+First, install the `pdf-to-images-browser` package:
 
-const dataUrls = await pdfto.images(pdfFile, {
-  output: 'dataurl',
-});
+```bash
+npm install pdf-to-images-browser
 ```
 
-Then, send the image data URLs to your API and process them:
+Then in your client component:
 
 ```typescript
+const handlePdfUpload = async (pdfFile: File) => {
+  try {
+    // Convert PDF to images
+    const images = await pdfToImages(pdfFile, {
+      output: 'blob',
+    });
+
+    // Create FormData and append images
+    const formData = new FormData();
+    images.forEach((image, index) => {
+      formData.append('images', image, `page-${index + 1}.png`);
+    });
+
+    // Send to API route
+    const response = await fetch('/api/extract', {
+      method: 'POST',
+      body: formData,
+    });
+
+    const data = await response.json();
+    console.log('Extracted text:', data.results);
+  } catch (error) {
+    console.error('Error processing PDF:', error);
+  }
+};
+```
+
+In your Next.js API route handler (`app/api/extract/route.ts`):
+
+```typescript
+import {NextRequest, NextResponse} from 'next/server';
+
 import {OcrLLM} from 'ocr-llm';
 
 const ocrllm = new OcrLLM({
   provider: 'openai',
-  key: 'your-api-key',
+  key: process.env.OPENAI_API_KEY!,
 });
 
-const results = await ocrllm.pdfImages(dataUrls);
-results.forEach(page => {
-  console.log(`Page ${page.page}:`, page.content);
-});
+export async function POST(req: NextRequest) {
+  try {
+    const formData = await req.formData();
+    const images = formData.getAll('images');
+
+    // Process each image and extract text
+    const results = await Promise.all(
+      images.map(async image => {
+        const buffer = Buffer.from(await (image as Blob).arrayBuffer());
+        return ocrllm.image(buffer);
+      }),
+    );
+
+    return NextResponse.json({results});
+  } catch (error) {
+    console.error('Failed to process images:', error);
+    return NextResponse.json(
+      {error: 'Failed to process images'},
+      {status: 500},
+    );
+  }
+}
 ```
 
 ### Limitation

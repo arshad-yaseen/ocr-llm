@@ -35,5 +35,5 @@ export const API_ENDPOINTS: Record<Provider, string> = {
 /**
  * Prompt template for the LLM.
  */
-export const PROMPT_TEMPLATE =
+export const DEFAULT_PROMPT_TEMPLATE =
   'Extract all visible text from this image. Format the output as markdown. Include only the text content, no explanations or additional context. Fix any formatting issues, typos, or inconsistencies found in the extracted content.';

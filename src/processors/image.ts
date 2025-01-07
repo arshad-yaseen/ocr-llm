@@ -1,11 +1,11 @@
 import {createHash} from 'crypto';
 
-import LRUCache from '../../classes/lru-cache';
-import {_pm, report} from '../../logger';
-import {ImageResult, InputSource, Provider} from '../../types';
-import {getBufferFromInput} from '../../utils/buffer';
-import {callLLM} from '../../utils/call-llm';
-import {removeCodeBlockMarkers} from '../../utils/string';
+import LRUCache from '../classes/lru-cache';
+import {_pm, report} from '../logger';
+import {ImageResult, InputSource, Provider} from '../types';
+import {getBufferFromInput} from '../utils/buffer';
+import {callLLM} from '../utils/call-llm';
+import {removeCodeBlockMarkers} from '../utils/string';
 
 const CACHE_CAPACITY = 500; // Maximum number of items in the cache
 

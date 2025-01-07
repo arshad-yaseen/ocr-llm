@@ -1,35 +1,40 @@
 import {NextRequest, NextResponse} from 'next/server';
 
-import {OcrLLM} from 'ocr-llm';
-
-export const maxDuration = 60;
+import {ImageResult, OcrLLM, PageResult} from 'ocr-llm';
 
 const ocrllm = new OcrLLM({
   provider: 'openai',
   key: process.env.OPENAI_API_KEY!,
 });
 
-export async function POST(request: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
-    if (!process.env.OPENAI_API_KEY) {
-      return NextResponse.json(
-        {error: 'OpenAI API key not configured'},
-        {status: 500},
+    const formData = await req.formData();
+    const images = formData.getAll('images');
+    const url = formData.get('url');
+
+    let results: (ImageResult | PageResult)[] = [];
+
+    // Process each image and extract text
+    if (images.length > 0) {
+      results = await Promise.all(
+        images.map(async image => {
+          const buffer = Buffer.from(await (image as Blob).arrayBuffer());
+          return ocrllm.image(buffer);
+        }),
       );
     }
 
-    const {urls} = await request.json();
+    if (url) {
+      const result = await ocrllm.image(url as string);
+      results.push(result);
+    }
 
-    const result =
-      typeof urls === 'string'
-        ? await ocrllm.image(urls)
-        : await ocrllm.pdfImages(urls);
-
-    return NextResponse.json({result});
+    return NextResponse.json({results});
   } catch (error) {
-    console.error('Error processing request:', error);
+    console.error('Failed to process images:', error);
     return NextResponse.json(
-      {error: 'An error occurred while processing your request'},
+      {error: 'Failed to process images'},
       {status: 500},
     );
   }

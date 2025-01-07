@@ -2,12 +2,11 @@
   "name": "ocr-llm",
   "version": "0.4.10",
   "description": "Fast, ultra-accurate text extraction from any image or PDF, even challenging ones, with structured markdown output powered by vision models.",
-  "types": "./build/index.d.mts",
-  "import": "./build/index.mjs",
-  "require": "./build/index.js",
+  "main": "./build/index.js",
+  "module": "./build/index.mjs",
+  "types": "./build/index.d.ts",
   "files": [
-    "build",
-    "scripts"
+    "build"
   ],
   "scripts": {
     "build": "tsup",
@@ -19,8 +18,7 @@
     "format": "prettier --write .",
     "validate": "pnpm build && pnpm format && pnpm tsc && pnpm lint",
     "release": "release-it",
-    "prepare": "husky",
-    "postinstall": "node scripts/install-image-processors.js"
+    "prepare": "husky"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",

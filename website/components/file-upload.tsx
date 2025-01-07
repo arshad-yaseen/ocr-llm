@@ -27,8 +27,8 @@ const FileUpload = ({onUpload}: FileUploadProps) => {
   }) => {
     try {
       setIsConverting(true);
-      if (!pdfFile) {
-        toast.error('No file found');
+      if (!pdfFile && !url) {
+        toast.error('No file or URL found');
         return;
       }
 

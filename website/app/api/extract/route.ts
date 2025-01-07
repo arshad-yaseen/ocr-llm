@@ -7,6 +7,8 @@ const ocrllm = new OcrLLM({
   key: process.env.OPENAI_API_KEY!,
 });
 
+export const maxDuration = 60;
+
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();

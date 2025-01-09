@@ -1,11 +1,17 @@
 
 
-## [0.4.14](https://github.com/arshad-yaseen/ocr-llm/compare/0.4.13...0.4.14) (2025-01-09)
+## [0.4.15](https://github.com/arshad-yaseen/ocr-llm/compare/0.4.14...0.4.15) (2025-01-09)
 
+
+### 📚 Documentation
+
+* update supported file formats ([1a5055b](https://github.com/arshad-yaseen/ocr-llm/commit/1a5055b646651643f37d2ddedbbe6ed92a742fa1))
+
+## [0.4.14](https://github.com/arshad-yaseen/ocr-llm/compare/0.4.13...0.4.14) (2025-01-09)
 
 ### 🔧 Maintenance
 
-* improve concurrency limit ([f0dde5e](https://github.com/arshad-yaseen/ocr-llm/commit/f0dde5e7f5e0cf554887f14e6b47f43454dbde73))
+- improve concurrency limit ([f0dde5e](https://github.com/arshad-yaseen/ocr-llm/commit/f0dde5e7f5e0cf554887f14e6b47f43454dbde73))
 
 ## [0.4.13](https://github.com/arshad-yaseen/ocr-llm/compare/0.4.12...0.4.13) (2025-01-09)
 

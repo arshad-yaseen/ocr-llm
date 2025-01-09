@@ -43,8 +43,6 @@ Fast, ultra-accurate text extraction from any image or PDF—including challengi
 - JPEG/JPG (\*.jpg, \*.jpeg)
 - WebP (\*.webp)
 - GIF (\*.gif, first frame only)
-- BMP (\*.bmp)
-- TIFF (\*.tiff, \*.tif)
 - SVG (\*.svg)
 
 ## Installation

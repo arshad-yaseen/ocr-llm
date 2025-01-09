@@ -1,25 +1,35 @@
 
 
-## [0.4.12](https://github.com/arshad-yaseen/ocr-llm/compare/0.4.10...0.4.12) (2025-01-07)
+## [0.4.13](https://github.com/arshad-yaseen/ocr-llm/compare/0.4.12...0.4.13) (2025-01-09)
 
 
 ### 🐛 Bug Fixes
 
-* export ([4e4769a](https://github.com/arshad-yaseen/ocr-llm/commit/4e4769ab937b2c72bcbb5e62f55e8eab40e4ed60))
-
-
-### 📚 Documentation
-
-* update ([0539e5d](https://github.com/arshad-yaseen/ocr-llm/commit/0539e5d303e0afcd7ccc8fcd36693a5966bb97bc))
+* no file found [skip-release] ([4e69d53](https://github.com/arshad-yaseen/ocr-llm/commit/4e69d531a5c37d8650a8813696cc6caaee75e50e))
+* website image support ([0de9eb1](https://github.com/arshad-yaseen/ocr-llm/commit/0de9eb1411fb21678000a4773ff2b10b13ea9a57))
 
 
 ### 🔧 Maintenance
 
-* fix version ([ff4c32a](https://github.com/arshad-yaseen/ocr-llm/commit/ff4c32acbaa2b3b660d0e4d322a9e93a88439b4f))
-* fresh install ([1c68d0f](https://github.com/arshad-yaseen/ocr-llm/commit/1c68d0fd8367d14f132fe7c7cedad06073e8edad))
-* fresh install ([1ae21c6](https://github.com/arshad-yaseen/ocr-llm/commit/1ae21c65b3375b6415fbf3438b6c5ea96067bf20))
-* import ([74825bd](https://github.com/arshad-yaseen/ocr-llm/commit/74825bd13973883da2ed94d48e6e7b0218c1dc3c))
-* update lock ([aec9767](https://github.com/arshad-yaseen/ocr-llm/commit/aec976741cec40017e15c1078f3ed9576aa6bc1a))
+* export max duration [skip-release] ([60a2d4a](https://github.com/arshad-yaseen/ocr-llm/commit/60a2d4acca5363411822c8071089d843fb8c49eb))
+
+## [0.4.12](https://github.com/arshad-yaseen/ocr-llm/compare/0.4.10...0.4.12) (2025-01-07)
+
+### 🐛 Bug Fixes
+
+- export ([4e4769a](https://github.com/arshad-yaseen/ocr-llm/commit/4e4769ab937b2c72bcbb5e62f55e8eab40e4ed60))
+
+### 📚 Documentation
+
+- update ([0539e5d](https://github.com/arshad-yaseen/ocr-llm/commit/0539e5d303e0afcd7ccc8fcd36693a5966bb97bc))
+
+### 🔧 Maintenance
+
+- fix version ([ff4c32a](https://github.com/arshad-yaseen/ocr-llm/commit/ff4c32acbaa2b3b660d0e4d322a9e93a88439b4f))
+- fresh install ([1c68d0f](https://github.com/arshad-yaseen/ocr-llm/commit/1c68d0fd8367d14f132fe7c7cedad06073e8edad))
+- fresh install ([1ae21c6](https://github.com/arshad-yaseen/ocr-llm/commit/1ae21c65b3375b6415fbf3438b6c5ea96067bf20))
+- import ([74825bd](https://github.com/arshad-yaseen/ocr-llm/commit/74825bd13973883da2ed94d48e6e7b0218c1dc3c))
+- update lock ([aec9767](https://github.com/arshad-yaseen/ocr-llm/commit/aec976741cec40017e15c1078f3ed9576aa6bc1a))
 
 ## [0.4.10](https://github.com/arshad-yaseen/ocr-llm/compare/0.4.9...0.4.10) (2025-01-07)
 

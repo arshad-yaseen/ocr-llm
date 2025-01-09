@@ -28,8 +28,14 @@ export async function POST(req: NextRequest) {
     }
 
     if (url) {
-      const result = await ocrllm.image(url as string);
-      results.push(result);
+      const urlStr = url as string;
+      const isPdf = urlStr.toLowerCase().endsWith('.pdf');
+      const result = await (isPdf ? ocrllm.pdf(urlStr) : ocrllm.image(urlStr));
+      if (isPdf) {
+        results.push(...(result as PageResult[]));
+      } else {
+        results.push(result as ImageResult);
+      }
     }
 
     return NextResponse.json({results});

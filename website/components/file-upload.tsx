@@ -18,30 +18,33 @@ const FileUpload = ({onUpload}: FileUploadProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isConverting, setIsConverting] = useState(false);
 
-  const handleConvert = async ({
-    pdfFile,
-    url,
-  }: {
-    pdfFile?: File;
-    url?: string;
-  }) => {
+  const handleConvert = async ({file, url}: {file?: File; url?: string}) => {
     try {
       setIsConverting(true);
-      if (!pdfFile && !url) {
+      if (!file && !url) {
         toast.error('No file or URL found');
         return;
       }
 
       let images: Blob[] = [];
-      if (pdfFile) {
-        images = (await pdfToImages(pdfFile, {
-          output: 'blob',
-        })) as Blob[];
+      if (file) {
+        if (file.type === 'application/pdf') {
+          images = (await pdfToImages(file, {
+            output: 'blob',
+          })) as Blob[];
+        } else if (file.type.startsWith('image/')) {
+          images = [file];
+        } else {
+          toast.error('Unsupported file type');
+          return;
+        }
       }
 
       const formData = new FormData();
       images.forEach((image, index) => {
-        formData.append('images', image as Blob, `page-${index + 1}.png`);
+        const filename =
+          images.length === 1 ? file?.name : `page-${index + 1}.png`;
+        formData.append('images', image as Blob, filename);
       });
 
       if (url) {
@@ -50,7 +53,7 @@ const FileUpload = ({onUpload}: FileUploadProps) => {
 
       onUpload(formData);
     } catch (error) {
-      toast.error('Error processing PDF');
+      toast.error('Error processing file');
     } finally {
       setIsConverting(false);
     }
@@ -65,7 +68,7 @@ const FileUpload = ({onUpload}: FileUploadProps) => {
     setUrl('');
     const file = e.target.files?.[0];
     if (file) {
-      handleConvert({pdfFile: file});
+      handleConvert({file});
     }
   };
 

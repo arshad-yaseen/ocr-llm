@@ -1,17 +1,22 @@
 
 
-## [0.4.13](https://github.com/arshad-yaseen/ocr-llm/compare/0.4.12...0.4.13) (2025-01-09)
-
-
-### 🐛 Bug Fixes
-
-* no file found [skip-release] ([4e69d53](https://github.com/arshad-yaseen/ocr-llm/commit/4e69d531a5c37d8650a8813696cc6caaee75e50e))
-* website image support ([0de9eb1](https://github.com/arshad-yaseen/ocr-llm/commit/0de9eb1411fb21678000a4773ff2b10b13ea9a57))
+## [0.4.14](https://github.com/arshad-yaseen/ocr-llm/compare/0.4.13...0.4.14) (2025-01-09)
 
 
 ### 🔧 Maintenance
 
-* export max duration [skip-release] ([60a2d4a](https://github.com/arshad-yaseen/ocr-llm/commit/60a2d4acca5363411822c8071089d843fb8c49eb))
+* improve concurrency limit ([f0dde5e](https://github.com/arshad-yaseen/ocr-llm/commit/f0dde5e7f5e0cf554887f14e6b47f43454dbde73))
+
+## [0.4.13](https://github.com/arshad-yaseen/ocr-llm/compare/0.4.12...0.4.13) (2025-01-09)
+
+### 🐛 Bug Fixes
+
+- no file found [skip-release] ([4e69d53](https://github.com/arshad-yaseen/ocr-llm/commit/4e69d531a5c37d8650a8813696cc6caaee75e50e))
+- website image support ([0de9eb1](https://github.com/arshad-yaseen/ocr-llm/commit/0de9eb1411fb21678000a4773ff2b10b13ea9a57))
+
+### 🔧 Maintenance
+
+- export max duration [skip-release] ([60a2d4a](https://github.com/arshad-yaseen/ocr-llm/commit/60a2d4acca5363411822c8071089d843fb8c49eb))
 
 ## [0.4.12](https://github.com/arshad-yaseen/ocr-llm/compare/0.4.10...0.4.12) (2025-01-07)
 

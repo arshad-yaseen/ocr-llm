@@ -36,6 +36,17 @@ Fast, ultra-accurate text extraction from any image or PDF—including challengi
 - [Browser-Specific Implementation](#browser-specific-implementation)
 - [Contributing](#contributing)
 
+## Supported Files
+
+- PDF documents (\*.pdf)
+- PNG (\*.png)
+- JPEG/JPG (\*.jpg, \*.jpeg)
+- WebP (\*.webp)
+- GIF (\*.gif, first frame only)
+- BMP (\*.bmp)
+- TIFF (\*.tiff, \*.tif)
+- SVG (\*.svg)
+
 ## Installation
 
 ### Prerequisites

@@ -1,5 +1,7 @@
-import {DEFAULT_PROMPT_TEMPLATE} from '../constants';
-import {DEFAULT_MODEL_TEMPERATURE} from '../constants/llm';
+import {
+  DEFAULT_MODEL_TEMPERATURE,
+  DEFAULT_PROMPT_TEMPLATE,
+} from '../constants/llm';
 import type {
   OpenAIChatCompletion,
   OpenAIChatCompletionCreateParams,
